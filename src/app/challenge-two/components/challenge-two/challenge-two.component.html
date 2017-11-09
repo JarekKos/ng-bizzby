@@ -1,0 +1,23 @@
+<div class="form-group">
+  <label class="big">What is your coverage area?</label>
+  <label class="small">Postcode</label>
+  <mat-form-field class="full-width">
+    <input
+      matInput
+      [(ngModel)]="postCode"
+      (stateChanges)="postCodeChange($event)"
+    >
+  </mat-form-field>
+  <label class="small">Range</label>
+  <mat-slider
+    [min]="1"
+    [max]="50"
+    [step]="1"
+    [value]="range"
+    [thumb-label]="true"
+    (change)="onRangeChange($event)"
+    (input)="onRangeChange($event)"
+  >
+  </mat-slider>
+  <app-g-map [range]="range" [postCode]="postCode"></app-g-map>
+</div>

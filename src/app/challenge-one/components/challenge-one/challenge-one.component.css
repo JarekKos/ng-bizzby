@@ -1,0 +1,48 @@
+.full-width {
+  width: 100%;
+}
+
+label {
+  color: #404156;
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.Summary .Label {
+  text-align: center;
+}
+
+.Summary-data {
+  background: rgb(36, 218, 192);
+  border-radius: 7px;
+  color: white;
+  font-size: 21px;
+  font-weight: bold;
+  margin-top: 15px;
+  padding: 20px 15px;
+  text-align: center;
+}
+
+.Summary-data-row {
+  display: flex;
+}
+
+.Summary-data-row:first-child {
+  margin-bottom: 10px;
+}
+
+.Summary-data-row span {
+  padding: 0 5px;
+}
+
+.Summary-data-row span:first-child {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.Summary-data-row span:last-child {
+  text-align: left;
+  width: 120px;
+}
+

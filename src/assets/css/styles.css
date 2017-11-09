@@ -1,0 +1,75 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body{margin:0;padding:0;font-family:sans-serif}
+
+.App{margin:0 auto;width:100%; -webkit-box-direction: normal}
+@media (min-width:480px){
+  .App{width:420px}
+}.App-logo{
+   display:block;height:32px;margin:30px auto 15px 15px;width:85px
+ }
+
+.App .mat-tab-label {
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 17px 12px;
+  position: relative;
+  text-transform: uppercase;
+  -webkit-transition-duration: .35s;
+  -o-transition-duration: .35s;
+  transition-duration: .35s;
+  -webkit-transition-property: color, -webkit-box-shadow;
+  transition-property: color, -webkit-box-shadow;
+  -o-transition-property: box-shadow, color;
+  transition-property: box-shadow, color;
+  transition-property: box-shadow, color, -webkit-box-shadow;
+  -webkit-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  -o-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  opacity: .7;
+  width: 50%;
+}
+
+.App .mat-slider-horizontal {
+  width: 100%;
+}
+
+.App .mat-tab-label .mat-tab-label-active {
+  opacity: 1;
+}
+
+.App .mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: #24dac0;
+}
+
+.App .mat-tab-header {
+  margin-bottom: 30px;
+}
+
+.App .mat-input-container {
+  padding: 15px 0 45px;
+}
+
+.App .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label, .mat-accent .mat-slider-track-fill {
+  background-color: #24dac0;
+}
+
+.App .form-group {
+  margin-bottom: 45px;
+}
+
+.App .mat-form-field-ripple {
+  background-color: #24dac0;;
+}
+
+.App .mat-tab-body.mat-tab-body-active,
+.App .mat-tab-body-content,
+.App .mat-tab-body,
+.App .mat-tab-body-wrapper{
+  overflow: visible;
+}
+
+
+
+/*# sourceMappingURL=main.f903af61.css.map*/

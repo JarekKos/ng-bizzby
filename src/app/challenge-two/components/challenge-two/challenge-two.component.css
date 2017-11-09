@@ -1,0 +1,25 @@
+.full-width {
+  width: 100%;
+  padding-top: 0;
+}
+
+label {
+  display: block;
+}
+
+label.big {
+  color: #404156;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+label.small {
+  color: #404156;
+  display: block;
+  font-size: 12px;
+}
+
+mat-slider {
+  margin-top: 20px;
+}

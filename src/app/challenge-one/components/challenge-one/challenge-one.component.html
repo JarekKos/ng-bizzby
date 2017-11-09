@@ -1,0 +1,65 @@
+<form [formGroup]="form" novalidate>
+  <div class="form-group">
+    <label>How many properties have you got?</label>
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        formControlName="propertiesNumber"
+        placeholder="type number of properties, e.g. 20"
+      >
+    </mat-form-field>
+    <mat-slider
+      [min]="10"
+      [max]="150"
+      [step]="10"
+      [value]="form.get('propertiesNumber').value"
+      [thumb-label]="true"
+      [tick-interval]="1"
+      (change)="onPropNumberChange($event)"
+      (input)="onPropNumberChange($event)"
+    >
+    </mat-slider>
+  </div>
+  <div class="form-group">
+    <label>What is your maintenance cost per property?</label>
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        formControlName="costPerProperty"
+        placeholder="per annum (£)"
+      >
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <label>What is the commission you earn?</label>
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        formControlName="commission"
+        placeholder="per property (%)"
+      >
+    </mat-form-field>
+  </div>
+</form>
+<div class="Summary" *ngIf="form.valid">
+  <label>Great! Here's how much you earn:</label>
+  <div class="Summary-data">
+    <div class="Summary-data-row">
+					<span>
+						£{{annualIncomeFormatted}}
+					</span>
+      <span>per annum</span>
+    </div>
+    <div class="Summary-data-row">
+					<span>
+						£{{monthIncomeFormatted}}
+					</span>
+      <span>per month</span>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<!--<p>Form value: {{ form.value | json }}</p>-->
+<!--<p>Form status: {{ form.status | json }}</p>-->
+<!--<p>{{ form.get('propertiesNumber').touched }}</p>-->
