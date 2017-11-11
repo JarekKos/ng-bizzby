@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {flatMap} from "tslint/lib/utils";
 
 @Component({
   selector: 'app-challenge-two',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChallengeTwoComponent implements OnInit {
 
+  @Input() isActive = false;
   postCode = '';
   range = 1;
 

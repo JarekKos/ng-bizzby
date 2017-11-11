@@ -19,5 +19,5 @@
     (input)="onRangeChange($event)"
   >
   </mat-slider>
-  <app-g-map [range]="range" [postCode]="postCode"></app-g-map>
+  <app-g-map *ngIf="isActive" [range]="range" [postCode]="postCode"></app-g-map>
 </div>

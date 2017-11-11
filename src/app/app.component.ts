@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  activeTab = 0;
+  onChangeSelectedTab(ev) {
+    this.activeTab = ev.index;
+  }
+
+  isTabActive(index: number): boolean {
+    return this.activeTab === index;
+  }
 }

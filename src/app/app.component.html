@@ -1,6 +1,6 @@
 <div class="App">
   <img class="App-logo" src="assets/images/bizzby-logo.png" alt="bizzby" />
-  <mat-tab-group>
+  <mat-tab-group (selectedTabChange)="onChangeSelectedTab($event)">
     <mat-tab label="Challenge #1">
       <div>
         <app-challenge-one></app-challenge-one>
@@ -8,7 +8,7 @@
     </mat-tab>
     <mat-tab label="Challenge #2">
       <div>
-        <app-challenge-two></app-challenge-two>
+        <app-challenge-two [isActive]="isTabActive(1)"></app-challenge-two>
       </div>
     </mat-tab>
   </mat-tab-group>
