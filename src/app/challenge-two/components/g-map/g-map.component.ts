@@ -1,5 +1,5 @@
 import {
-  Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild, AfterViewInit
+  Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild, AfterViewInit, AfterContentChecked
 } from '@angular/core';
 import { AgmMap, AgmCircle } from '@agm/core';
 
@@ -18,6 +18,9 @@ export class GMapComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChild(AgmMap) map: AgmMap;
   @ViewChild(AgmCircle) circle: AgmCircle;
 
+  geocoderInterval = null;
+  boundsInterval = null;
+
   lat = null;
   lng = null;
   latLng = null;
@@ -30,49 +33,40 @@ export class GMapComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.isActive && changes.isActive.firstChange && changes.isActive.currentValue) {
-      setTimeout(() => {
-        this.circle.getBounds().then((latLng) => this.latLng = latLng);
-      });
-    }
-
     if (changes.range && !changes.range.firstChange) {
       this.circle.getBounds().then((latLng) => this.latLng = latLng);
     }
-
-    if ( changes.postCode && !changes.postCode.firstChange) {
-      this.geoCoder = new window['google'].maps.Geocoder();
-
-      this.geoCoder.geocode({ address: changes.postCode.currentValue }, (result, status) => {
-        if (status === 'OK') {
-          this.lat = result[0].geometry.location.lat();
-          this.lng = result[0].geometry.location.lng();
-          console.log(this.lat, this.lng);
-        }
-      });
-    }
-
-    // if (!changes.range.firstChange) {
-    //   this.map.triggerResize(true).then(() => null);
-    //   this.circle.getBounds().then((latLng) => this.latLng = latLng);
-    //   this.geoCoder = new window['google'].maps.Geocoder()
-    //   console.log(this.geoCoder);
-    //
-    //   this.geoCoder.geocode({ address: '49-100' }, (result, status) => {
-    //     if (status === 'OK') {
-    //       this.lat = result[0].geometry.location.lat();
-    //       this.lng = result[0].geometry.location.lng();
-    //     }
-    //   });
-    // }
   }
 
   get rangeInMiles() {
     return this.range * 1609.34; // transform value into miles
   }
 
-  ngAfterViewInit() {
+  getBounds() {
+    if (this.circle) {
+      this.circle.getBounds().then((latLng) => this.latLng = latLng);
+      clearInterval(this.boundsInterval);
+    }
+  }
 
+  getLatLng() {
+    if (window['google']) {
+      this.geoCoder = new window['google'].maps.Geocoder();
+
+      this.geoCoder.geocode({ address: this.postCode }, (result, status) => {
+        if (status === 'OK') {
+          this.lat = result[0].geometry.location.lat();
+          this.lng = result[0].geometry.location.lng();
+          this.boundsInterval = setInterval(() => this.getBounds(), 50);
+        }
+      });
+
+      clearInterval(this.geocoderInterval);
+    }
+  }
+
+  ngAfterViewInit() {
+    this.geocoderInterval = setInterval(() => this.getLatLng(), 50);
   }
 
 }
