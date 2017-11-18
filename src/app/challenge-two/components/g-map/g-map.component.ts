@@ -39,7 +39,7 @@ export class GMapComponent implements OnChanges, AfterContentChecked {
       this.geocoderInterval = setInterval(() => this.getLatLng(changes.postCode.currentValue.trim()), 50);
     }
 
-    if (changes.range && !changes.range.firstChange) {
+    if (changes.range && !changes.range.firstChange && this.isPostCodeValid()) {
       this.circle.getBounds().then((latLng) => this.latLng = latLng);
     }
   }
@@ -84,7 +84,7 @@ export class GMapComponent implements OnChanges, AfterContentChecked {
     }
   }
 
-  isPostCodeValid(value) {
+  isPostCodeValid(value?) {
     const postCode = value || this.postCode;
     if (!/^[A-Z]{1,2}([0-9]{1,2}|[0-9][A-Z])\s*[0-9][A-Z]{2}$/.test(postCode)) {
       return false;
