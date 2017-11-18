@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {flatMap} from "tslint/lib/utils";
 
 @Component({
   selector: 'app-challenge-two',
