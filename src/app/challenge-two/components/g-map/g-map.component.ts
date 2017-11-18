@@ -1,5 +1,10 @@
 import {
-  Component, Input, OnInit, OnChanges, SimpleChanges, ViewChild, AfterViewInit, AfterContentChecked
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+  AfterContentChecked
 } from '@angular/core';
 import { AgmMap, AgmCircle } from '@agm/core';
 
@@ -8,11 +13,10 @@ import { AgmMap, AgmCircle } from '@agm/core';
   templateUrl: './g-map.component.html',
   styleUrls: ['./g-map.component.css'],
 })
-export class GMapComponent implements OnInit, OnChanges, AfterViewInit {
+export class GMapComponent implements OnChanges, AfterContentChecked {
 
   @Input() range;
   @Input() postCode;
-  @Input() isActive;
 
   // get element of StepDirective
   @ViewChild(AgmMap) map: AgmMap;
@@ -21,20 +25,28 @@ export class GMapComponent implements OnInit, OnChanges, AfterViewInit {
   geocoderInterval = null;
   boundsInterval = null;
 
-  lat = null;
-  lng = null;
+  lat = 0;
+  lng = 0;
   latLng = null;
   geoCoder = null;
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
+  drawCircle = false;
+  triggerResize = false;
 
   ngOnChanges(changes: SimpleChanges) {
+    if (changes.postCode && this.isPostCodeValid(changes.postCode.currentValue.trim())) {
+      this.drawCircle = false;
+      this.triggerResize = true;
+      this.geocoderInterval = setInterval(() => this.getLatLng(changes.postCode.currentValue.trim()), 50);
+    }
+
     if (changes.range && !changes.range.firstChange) {
       this.circle.getBounds().then((latLng) => this.latLng = latLng);
+    }
+  }
+
+  ngAfterContentChecked() {
+    if (this.triggerResize) {
+      this.map.triggerResize().then(() => this.triggerResize = false);
     }
   }
 
@@ -44,19 +56,26 @@ export class GMapComponent implements OnInit, OnChanges, AfterViewInit {
 
   getBounds() {
     if (this.circle) {
-      this.circle.getBounds().then((latLng) => this.latLng = latLng);
+      this.circle.getBounds().then((latLng) => {
+        this.latLng = latLng;
+      });
       clearInterval(this.boundsInterval);
+    } else {
+      this.map.triggerResize().then(() => {});
     }
   }
 
-  getLatLng() {
-    if (window['google']) {
+  getLatLng(postcode) {
+    if (window['google'] && !this.geoCoder) {
       this.geoCoder = new window['google'].maps.Geocoder();
+    }
 
-      this.geoCoder.geocode({ address: this.postCode }, (result, status) => {
+    if (this.geoCoder) {
+      this.geoCoder.geocode({ address: postcode }, (result, status) => {
         if (status === 'OK') {
           this.lat = result[0].geometry.location.lat();
           this.lng = result[0].geometry.location.lng();
+          this.drawCircle = true;
           this.boundsInterval = setInterval(() => this.getBounds(), 50);
         }
       });
@@ -65,8 +84,13 @@ export class GMapComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    this.geocoderInterval = setInterval(() => this.getLatLng(), 50);
+  isPostCodeValid(value) {
+    const postCode = value || this.postCode;
+    if (!/^[A-Z]{1,2}([0-9]{1,2}|[0-9][A-Z])\s*[0-9][A-Z]{2}$/.test(postCode)) {
+      return false;
+    }
+
+    return true;
   }
 
 }
