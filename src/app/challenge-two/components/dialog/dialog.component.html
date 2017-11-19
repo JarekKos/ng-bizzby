@@ -1,0 +1,24 @@
+<div class="DialogContainer">
+  <div class="DialogContainer-content">
+    <label class="Label">What is your coverage area?</label>
+    <img
+      class="DialogContainer-location-icon"
+      src="/assets/images/location.svg"
+      alt="Location"
+    />
+    <p class="DialogContainer-text">
+      <span>
+        We ask this to detect your current<br />location for your
+        coverage area.
+      </span>
+      <span>
+        Waiting for access and data...<br />
+        <br />
+      </span>
+    </p>
+  </div>
+  <button class="Button" (click)="accessToLocation(true)">Allow Location Access</button>
+  <span class="DialogContainer-no" (click)="accessToLocation(false)">
+    No, I will enter it manually
+  </span>
+</div>

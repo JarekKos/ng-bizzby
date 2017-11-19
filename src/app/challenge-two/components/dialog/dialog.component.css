@@ -1,0 +1,105 @@
+/*
+ugly way to overwrtie rect-tootlbox styles,
+they don't give easy access to overlay element in modal
+*/
+._2LA9x._1mb5R {
+  opacity: 0.75;
+}
+
+.DialogContainer {
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 320px;
+  margin-top: -20px;
+  overflow: visible;
+  text-align: center;
+}
+
+.DialogContainer > section {
+  padding: 0;
+}
+
+.DialogContainer-content {
+  padding: 30px 20px 15px;
+}
+@media (min-height: 480px) {
+  .DialogContainer-content {
+    padding: 35px 25px 35px;
+  }
+}
+
+.DialogContainer-location-icon {
+  display: inline-block;
+  height: 64px;
+  margin: 15px 0 10px;
+}
+@media (min-height: 480px) {
+  .DialogContainer-location-icon {
+    height: 72px;
+    margin: 40px 0 30px;
+  }
+}
+
+.DialogContainer p {
+  color: #404156;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+@media (min-height: 480px) {
+  .DialogContainer p {
+    font-size: 13px;
+    line-height: 24px;
+  }
+}
+
+.DialogContainer-no {
+  bottom: 20px;
+  color: #a7a7a7;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  left: 50%;
+  padding: 10px 0;
+  position: absolute;
+  text-decoration: underline;
+  transition: color 300ms ease-out;
+  transform: translateX(-50%);
+  background: transparent;
+  border: none;
+}
+@media (min-height: 480px) {
+  .DialogContainer-no {
+    bottom: -50px;
+  }
+}
+
+.DialogContainer-no:hover {
+  color: #fff;
+}
+
+.Label {
+  color: #404156;
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.Button {
+  background: rgb(36, 218, 192);
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 13px;
+  padding: 17px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 300ms background ease-out;
+  user-select: none;
+  width: 100%;
+}
+
+.Button:hover {
+  background: rgb(27, 163, 144); /* primary * 0.25 black */
+}
