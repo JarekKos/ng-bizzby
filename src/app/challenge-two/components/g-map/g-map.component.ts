@@ -17,6 +17,8 @@ export class GMapComponent implements OnChanges, AfterContentChecked {
 
   @Input() range;
   @Input() postCode;
+  @Input() browserLat = null;
+  @Input() browserLng = null;
 
   // get element of StepDirective
   @ViewChild(AgmMap) map: AgmMap;
@@ -39,7 +41,15 @@ export class GMapComponent implements OnChanges, AfterContentChecked {
       this.geocoderInterval = setInterval(() => this.getLatLng(changes.postCode.currentValue.trim()), 50);
     }
 
-    if (changes.range && !changes.range.firstChange && this.isPostCodeValid()) {
+    if (changes.browserLat && changes.browserLng && changes.browserLat.currentValue && changes.browserLng.currentValue) {
+      this.drawCircle = true;
+      this.triggerResize = true;
+      this.lat = changes.browserLat.currentValue;
+      this.lng = changes.browserLng.currentValue;
+      this.boundsInterval = setInterval(() => this.getBounds(), 50);
+    }
+
+    if (changes.range && !changes.range.firstChange && (this.isPostCodeValid() || (this.browserLat && this.browserLng))) {
       this.circle.getBounds().then((latLng) => this.latLng = latLng);
     }
   }

@@ -1,7 +1,7 @@
 <div class="form-group">
   <label class="big">What is your coverage area?</label>
-  <label class="small">Postcode</label>
-  <mat-form-field class="full-width">
+  <label class="small" *ngIf="showPostCodeField">Postcode</label>
+  <mat-form-field class="full-width" *ngIf="showPostCodeField">
     <input
       matInput
       [(ngModel)]="postCode"
@@ -18,5 +18,5 @@
     (input)="onRangeChange($event)"
   >
   </mat-slider>
-  <app-g-map *ngIf="isActive" [range]="range" [postCode]="postCode"></app-g-map>
+  <app-g-map *ngIf="isActive" [range]="range" [postCode]="postCode" [browserLat]="lat" [browserLng]="lng"></app-g-map>
 </div>
